@@ -1,14 +1,16 @@
 console.log("Hello World!");
 // The computer has a choice of the following words.
-var possibleWords = ['red', 'blue', 'green'];
+var possibleWords = ['baseball', 'cricket', 'tennis'];
 
 // const maxAttempts = 8;
 
 var chosenLetters = [];
-var remainingAttempts = 0;
+var incorrectLetters = [];
+var remainingAttempts = 10;
 var guessedWord = [];
 var underScores = [];
 var wins = 0;
+var losses = 0;
 var gameBegin = false;
 var gameFinish = false;
 var randomWord;
@@ -37,27 +39,60 @@ var chosenLetters = [];
         chosenLetters[i] = "_";
         guessedWord.push("_");
     }
-
+    console.log(guessedWord);
     updateDisplay();
 
+
+    document.getElementById('choice').textContent = chosenLetters.join(" ");
+    document.getElementById('choice').innerHTML = guessedWord;
+
+    console.log(chosenLetters);
+
+    
+
+
+    incorrectLetters = [];
+
 }
+remainingAttempts = 10;
+document.getElementById('attempts').textContent = remainingAttempts;
+document.getElementById('attempts').innerHTML = remainingAttempts;
+
+    document.onkeyup = function(event) {
+        
+        
+        chosenLetters = event.key;
+        console.log(chosenLetters);
+
+        if(randomWord.indexOf(chosenLetters) > -1)
+        {
+           for(var i = 0; i < randomWord.length; i++)
+           {
+               if(randomWord[i] === chosenLetters)
+               {
+                   guessedWord[i] = chosenLetters;
+                   console.log(guessedWord);
+               }
+           }
+           console.log("This is one of the letters!");
+        }
+
+            else {
+                incorrectLetters.push(chosenLetters);
+                remainingAttempts--;
+                console.log(remainingAttempts + " This is not one of the letters!");
+            }
+    }
+
+
+
 theGame();
-console.log(chosenLetters);
+
+
 
 function updateDisplay() {
 
     document.getElementById("numWins").textContent = wins; 
-
-
-
-
-
 }
 
 
-// word = answer.join(" ");
-
-// console.log(answer);
-
-
-// document.getElementById("choice").innerText = wins;
